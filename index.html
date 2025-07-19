@@ -2,58 +2,76 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>For You ❤️</title>
+  <title>Hi Suhana ❤️</title>
   <style>
     body {
+      background: radial-gradient(circle at top, #ffdde1, #ee9ca7);
+      font-family: 'Georgia', cursive;
       margin: 0;
-      background: linear-gradient(to bottom right, #ffe6f0, #ffcce0);
+      height: 100vh;
       overflow: hidden;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
-      font-family: 'Courier New', monospace;
-      color: #333;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      transition: background 1s ease;
     }
+
+    .page {
+      max-width: 90%;
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+    }
+
     h1 {
-      font-size: 2em;
+      font-size: 3.5em;
+      margin: 0;
+      animation: fadeIn 2s ease-out forwards;
     }
-    #message {
-      white-space: nowrap;
-      border-right: 2px solid;
-      width: 24ch;
-      animation: typing 4s steps(24), blink .5s step-end infinite alternate;
-      overflow: hidden;
+
+    p {
+      font-size: 1.8em;
+      margin: 20px 0 40px;
+      animation: fadeIn 3s ease-out forwards;
     }
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 24ch }
-    }
-    @keyframes blink {
-      from, to { border-color: transparent }
-      50% { border-color: #333 }
-    }
+
     button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 1em;
+      background: #ff6f91;
       border: none;
-      border-radius: 5px;
-      background: #ff6699;
       color: white;
+      padding: 15px 40px;
+      border-radius: 50px;
+      font-size: 1.2em;
       cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      animation: fadeIn 4s ease-out forwards;
     }
+
+    button:hover {
+      background: #ff3e6c;
+      transform: scale(1.05);
+    }
+
     .heart {
       position: absolute;
       width: 20px;
       height: 20px;
       background: red;
       transform: rotate(45deg);
-      animation: float 5s linear infinite;
+      animation: float 8s infinite linear;
+      opacity: 0.7;
     }
-    .heart:before,
-    .heart:after {
+
+    .heart::before,
+    .heart::after {
       content: '';
       position: absolute;
       width: 20px;
@@ -61,46 +79,67 @@
       background: red;
       border-radius: 50%;
     }
-    .heart:before {
+
+    .heart::before {
       top: -10px;
       left: 0;
     }
-    .heart:after {
+
+    .heart::after {
       left: -10px;
       top: 0;
     }
+
     @keyframes float {
       0% {
         transform: translateY(0) rotate(45deg);
-        opacity: 1;
+        opacity: 0.7;
       }
       100% {
         transform: translateY(-100vh) rotate(45deg);
         opacity: 0;
       }
     }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
-  <h1 id="message">Hi [Name], I like you ❤️</h1>
-  <button onclick="reveal()">Will you be mine?</button>
+  <!-- Page 1 -->
+  <div class="page" id="page1">
+    <h1>Hi Suhana</h1>
+    <p>You are really pretty ❤️</p>
+    <button onclick="nextPage()">Click, cutie 😊</button>
+  </div>
 
-  <audio id="bg-music" src="YOUR-SONG-LINK.mp3" autoplay loop></audio>
+  <!-- Page 2 -->
+  <div class="page hidden" id="page2">
+    <h1>💞</h1>
+    <p>I want to be your friend forever 💖</p>
+  </div>
 
+  <!-- Floating hearts -->
   <script>
-    function reveal() {
-      document.getElementById('message').innerText = "I want to spend forever with you ❤️";
-    }
+    const body = document.querySelector('body');
 
-    // Create floating hearts
-    setInterval(() => {
-      const heart = document.createElement('div');
+    for(let i = 0; i < 30; i++) {
+      let heart = document.createElement('div');
       heart.className = 'heart';
       heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = 3 + Math.random() * 2 + 's';
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
-    }, 500);
+      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+      heart.style.width = heart.style.height = (10 + Math.random() * 20) + 'px';
+      heart.style.background = 'pink';
+      body.appendChild(heart);
+    }
+
+    function nextPage() {
+      document.getElementById('page1').classList.add('hidden');
+      document.body.style.background = 'radial-gradient(circle at bottom, #fbc2eb, #a6c1ee)';
+      document.getElementById('page2').classList.remove('hidden');
+    }
   </script>
 </body>
 </html>
